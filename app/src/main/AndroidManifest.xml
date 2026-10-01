@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+      Permission budget (privacy requirement 23). This is the entire list.
+
+      SYSTEM_ALERT_WINDOW : the floating capsule. It is the user's only reliable
+                            STOP control, so it is treated as mandatory in the
+                            onboarding flow rather than optional.
+
+      Deliberately absent:
+        INTERNET            -> no AI call, no telemetry, no crash reporting.
+                               RemotePlanner is a compile-time extension point
+                               that refuses to run until the permission and a
+                               user-configured endpoint both exist.
+        QUERY_ALL_PACKAGES  -> Play-policy hostile and unnecessary; the <queries>
+                               block below is enough to resolve launchable apps.
+        READ/WRITE_EXTERNAL_STORAGE, MANAGE_EXTERNAL_STORAGE
+                            -> file tasks are performed *through* the Files UI,
+                               which is the whole point of a computer-use agent.
+        RECORD_AUDIO / CAMERA / POST_NOTIFICATIONS -> not used.
+        FOREGROUND_SERVICE  -> V1 needs none: the AccessibilityService is already
+                               a system-bound, restartable host process. See
+                            docs/DECISIONS.md (ADR-014).
+    -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!--
+      Android 11+ package visibility. Without this, getLaunchIntentForPackage()
+      and label->package resolution silently return null for other apps, and
+      "Open Settings" would fail on a device where it obviously should work.
+      This is the narrowest possible declaration: only launchable activities.
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".AgentApplication"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Deuty"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:label="@string/title_main"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.InspectorActivity"
+            android:exported="false"
+            android:label="@string/title_inspector" />
+
+        <activity
+            android:name=".ui.WorkflowsActivity"
+            android:exported="false"
+            android:label="@string/title_workflows" />
+
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_settings" />
+
+        <!--
+          exported="true" is required: components with an intent filter must
+          declare it explicitly on API 31+, and the accessibility framework
+          discovers services by querying for this action. Access is still
+          restricted to the system by BIND_ACCESSIBILITY_SERVICE, which no
+          third-party app can hold.
+        -->
+        <service
+            android:name=".platform.AgentAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/agent_accessibility_service" />
+        </service>
+    </application>
+
+</manifest>

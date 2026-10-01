@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+app/build/
+app/release/
+local.properties
+keystore.properties
+*.keystore
+*.jks
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Agent runtime artifacts that must never be committed (screen dumps, logs,
+# recorded workflows, task history). They live in app-private storage on the
+# device, but keep a guard here in case someone pulls them into the repo.
+/tools/out/
+*.screen.json
+*.hprof
+agent-logs/
+
+# Python verifier cache
+tools/__pycache__/
+.pytest_cache/

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Deuty Agent</string>
+    <string name="app_tagline">A tiny assistant that lives on your phone.</string>
+
+    <!-- Accessibility service (shown by the system in Settings) -->
+    <string name="accessibility_service_label">Deuty Agent</string>
+    <string name="accessibility_service_description">Lets Deuty read the current screen structure and perform taps, swipes and text entry on your behalf, only while a task you started is running.\n\nWhat it does NOT do:\n• It never records your screen continuously.\n• It never uploads screen content (the app has no network permission).\n• It never dismisses Android permission or payment dialogs — it pauses and asks you.\n\nEverything stays on this device. You can turn it off here at any time, which immediately stops the agent.</string>
+
+    <!-- Permissions / onboarding -->
+    <string name="perm_title">Two permissions, both on-device</string>
+    <string name="perm_accessibility_title">1. Accessibility (the agent\'s hands and eyes)</string>
+    <string name="perm_accessibility_body">Used to read the screen structure and to tap, swipe and type. The agent is inert until this is on.</string>
+    <string name="perm_overlay_title">2. Display over other apps (the capsule)</string>
+    <string name="perm_overlay_body">Shows the floating status capsule with the STOP button while the agent works.</string>
+    <string name="perm_restricted_hint">Toggle greyed out or missing? Android 13+ blocks accessibility for sideloaded apps until you tap the ⋮ menu on this screen → “Allow restricted settings”.</string>
+    <string name="perm_status_granted">On</string>
+    <string name="perm_status_missing">Off</string>
+    <string name="action_open_accessibility_settings">Open accessibility settings</string>
+    <string name="action_open_overlay_settings">Open overlay settings</string>
+    <string name="action_open_app_details">App details</string>
+
+    <!-- Main screen -->
+    <string name="title_main">Agent</string>
+    <string name="title_inspector">UI inspector</string>
+    <string name="title_workflows">Workflows</string>
+    <string name="title_settings">Settings</string>
+    <string name="chat_hint">Tell the agent what to do…</string>
+    <string name="action_send">Send</string>
+    <string name="action_stop">STOP</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Resume</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_skip">Skip step</string>
+    <string name="status_idle">Idle</string>
+    <string name="status_accessibility_off">Accessibility off — agent cannot act</string>
+    <string name="status_overlay_off">Overlay off — no capsule, no STOP button</string>
+    <string name="quick_read_screen">Read screen</string>
+    <string name="quick_back">Back</string>
+    <string name="quick_home">Home</string>
+    <string name="quick_scroll_down">Scroll ↓</string>
+    <string name="quick_record">Record</string>
+    <string name="quick_stop_record">Stop recording</string>
+    <string name="examples_title">Try one of these</string>
+    <string name="example_open_settings">Open Settings</string>
+    <string name="example_read_screen">What is on the screen?</string>
+    <string name="example_find_tap">Find and tap Wi‑Fi</string>
+    <string name="example_organise_pdfs">Organise the PDFs I downloaded today</string>
+    <string name="example_rename_move">Rename today\'s PDF to DS Assignment and move it to College/Assignments</string>
+    <string name="example_stuck">Why are you stuck?</string>
+    <string name="role_user">You</string>
+    <string name="role_agent">Agent</string>
+    <string name="role_system">System</string>
+
+    <!-- Overlay -->
+    <string name="overlay_title">Agent</string>
+    <string name="overlay_working">Working</string>
+    <string name="overlay_paused">Paused</string>
+    <string name="overlay_waiting">Needs you</string>
+    <string name="overlay_done">Done</string>
+    <string name="overlay_failed">Stopped</string>
+    <string name="overlay_idle">Idle</string>
+    <string name="overlay_collapse">Collapse</string>
+    <string name="overlay_expand">Expand</string>
+    <string name="overlay_confirm">Confirm</string>
+    <string name="overlay_deny">Don\'t</string>
+    <string name="overlay_reply_hint">Type a reply…</string>
+    <string name="overlay_reply_send">Reply</string>
+
+    <!-- Inspector / debug -->
+    <string name="inspector_live">Live</string>
+    <string name="inspector_current_package">Package</string>
+    <string name="inspector_current_window">Window</string>
+    <string name="inspector_node_count">Nodes</string>
+    <string name="inspector_last_action">Last action</string>
+    <string name="inspector_last_result">Result</string>
+    <string name="inspector_task_state">Task state</string>
+    <string name="inspector_retry_count">Retries</string>
+    <string name="inspector_budget">Budget</string>
+    <string name="inspector_vision_level">Screen source</string>
+    <string name="inspector_refresh">Refresh</string>
+    <string name="inspector_dump">Dump JSON</string>
+    <string name="inspector_copy">Copy summary</string>
+    <string name="inspector_sandbox">Run sandbox demo</string>
+    <string name="inspector_sandbox_hint">Runs the whole pipeline (plan → act → verify) against a simulated device. No accessibility needed, nothing on your phone is touched.</string>
+    <string name="inspector_empty">Nothing captured yet. Turn on Live or tap Refresh.</string>
+    <string name="inspector_dump_written">Dump written to %1$s</string>
+    <string name="inspector_copied">Screen summary copied (sensitive text redacted)</string>
+    <string name="inspector_no_accessibility">Accessibility service is off — the inspector cannot read screens.</string>
+
+    <!-- Workflows -->
+    <string name="workflow_empty">No workflows yet. Record one: tap Record, do the task by hand, tap Stop.</string>
+    <string name="workflow_record_title">Name this workflow</string>
+    <string name="workflow_record_hint">e.g. Download college timetable</string>
+    <string name="workflow_save">Save</string>
+    <string name="workflow_discard">Discard</string>
+    <string name="workflow_steps">%1$d steps</string>
+    <string name="workflow_run">Run</string>
+    <string name="workflow_delete">Delete</string>
+    <string name="workflow_deleted">Workflow deleted</string>
+    <string name="workflow_saved">Workflow saved</string>
+    <string name="workflow_recording">Recording… perform the task now</string>
+    <string name="workflow_recorded_steps">%1$d interactions captured</string>
+    <string name="workflow_nothing_recorded">Nothing was captured. Recording needs the accessibility service on.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_permissions">Permissions</string>
+    <string name="settings_section_safety">Safety</string>
+    <string name="settings_section_budgets">Limits (loop protection)</string>
+    <string name="settings_section_privacy">Privacy</string>
+    <string name="settings_section_ai">AI provider</string>
+    <string name="settings_section_debug">Debug</string>
+    <string name="settings_section_about">About</string>
+
+    <string name="pref_confirm_medium_title">Ask before MEDIUM-risk actions</string>
+    <string name="pref_confirm_medium_summary">Sending, posting, submitting, installing, changing settings.</string>
+    <string name="pref_block_sensitive_title">Refuse banking &amp; security screens</string>
+    <string name="pref_block_sensitive_summary">The agent stops and asks you instead of touching payment, password or permission screens.</string>
+    <string name="pref_password_title">Allow typing into password fields</string>
+    <string name="pref_password_summary">Off by default and should stay off. Even when on, HIGH-risk actions still need confirmation.</string>
+    <string name="pref_max_actions_title">Max actions per task</string>
+    <string name="pref_max_actions_summary">Hard stop. Prevents runaway automation.</string>
+    <string name="pref_max_seconds_title">Max task duration (seconds)</string>
+    <string name="pref_max_retries_title">Max retries per step</string>
+    <string name="pref_redact_title">Redact sensitive text</string>
+    <string name="pref_redact_summary">Masks passwords, OTPs and card-like numbers before anything is stored or logged.</string>
+    <string name="pref_history_title">Keep task history</string>
+    <string name="pref_history_summary">Stored only in this app\'s private storage on this device.</string>
+    <string name="pref_screenshot_title">Allow screen capture</string>
+    <string name="pref_screenshot_summary">Level 2 fallback. Off by default: the accessibility tree answers almost everything and costs far less.</string>
+    <string name="pref_debug_title">Debug mode</string>
+    <string name="pref_debug_summary">Shows package, node counts and action results in the capsule and inspector.</string>
+    <string name="pref_log_events_title">Log accessibility events</string>
+    <string name="pref_log_events_summary">Verbose. Only useful while developing; costs battery.</string>
+    <string name="pref_ai_provider_title">Planner</string>
+    <string name="pref_ai_provider_summary">Rule-based (offline). No AI provider is configured and no network permission exists in this build.</string>
+    <string name="pref_clear_history">Clear history now</string>
+    <string name="pref_clear_workflows">Delete all workflows</string>
+    <string name="pref_cleared">Cleared</string>
+    <string name="pref_danger_zone">Delete local data</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_architecture">Architecture &amp; limits: see docs/ARCHITECTURE.md and docs/ANDROID_LIMITATIONS.md in the repository.</string>
+
+    <!-- Agent speech -->
+    <string name="agent_need_accessibility">I need the accessibility service enabled before I can touch anything. Open Settings below?</string>
+    <string name="agent_did_not_understand">I could not turn that into steps yet. Without an AI provider I understand: open/launch, tap/click/long press, type, scroll/swipe, back, home, wait, read screen, find, rename, move, and running saved workflows. Try “Open Settings”.</string>
+    <string name="agent_stuck_loop">I appear to be stuck between two screens. I stopped after seeing the same state repeat.</string>
+    <string name="agent_budget_actions">I hit the per-task action limit and stopped.</string>
+    <string name="agent_budget_time">I hit the per-task time limit and stopped.</string>
+    <string name="agent_secure_screen">This screen is protected (FLAG_SECURE) or belongs to a payment/security app. I will not act here — please do this part yourself.</string>
+
+    <!-- Generic -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="content_description_dot">Agent status indicator</string>
+    <string name="content_description_send">Send task to agent</string>
+    <string name="content_description_stop">Stop the agent immediately</string>
+    <string name="content_description_drag">Drag to move the capsule</string>
+</resources>

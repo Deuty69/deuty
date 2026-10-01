@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adaptive-icon foreground. Content is kept inside the central 72dp of the
+     108dp canvas so the launcher mask never clips it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path android:fillColor="#FF3D6BFF" android:pathData="M53,24h2v9h-2z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M33,36h42a9,9 0 0,1 9,9v21a9,9 0 0,1 -9,9H33a9,9 0 0,1 -9,-9V45a9,9 0 0,1 9,-9z" />
+    <path android:fillColor="#FF0F1420" android:pathData="M41,47a6,6 0 1,0 0,12a6,6 0 0,0 0,-12zM67,47a6,6 0 1,0 0,12a6,6 0 0,0 0,-12z" />
+    <path android:fillColor="#FF3D6BFF" android:pathData="M46,66h16v4H46z" />
+</vector>

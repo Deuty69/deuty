@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Main agent screen (requirement 17).
+
+  Layout rationale:
+  * The chat list is the only weighted element, so the input row is always
+    reachable and the keyboard (adjustResize) never covers it.
+  * The task card is a plain LinearLayout that is GONE until a task exists. A
+    RecyclerView of steps would be nicer for 40-step plans, but the capsule
+    already carries the live step list; duplicating a scrolling view inside a
+    scrolling screen costs more than it buys.
+  * Permission and example rows are also GONE-able: the screen should look empty
+    and calm once the agent is set up, not permanently decorated with warnings.
+  * Every "button" is a TextView with a pill background. Material buttons inside
+    a Service-inflated overlay are a known source of theme crashes, and using the
+    same widget vocabulary in both places keeps the two consistent.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/space_l"
+        android:paddingTop="@dimen/space_m"
+        android:paddingEnd="@dimen/space_s"
+        android:paddingBottom="@dimen/space_m">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_main"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_headline"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_idle"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/openWorkflows"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/title_workflows"
+            android:padding="@dimen/space_s"
+            android:src="@drawable/ic_list" />
+
+        <ImageView
+            android:id="@+id/openInspector"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/title_inspector"
+            android:padding="@dimen/space_s"
+            android:src="@drawable/ic_eye" />
+
+        <ImageView
+            android:id="@+id/openSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/title_settings"
+            android:padding="@dimen/space_s"
+            android:src="@drawable/ic_settings" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/outline" />
+
+    <!-- Permissions. Visible until both are granted. -->
+    <LinearLayout
+        android:id="@+id/permissionCard"
+        style="@style/Card.Deuty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_m"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/perm_title"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/accessibilityLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:text="@string/perm_accessibility_title"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/perm_accessibility_body"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption" />
+
+        <TextView
+            android:id="@+id/openAccessibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:background="@drawable/bg_chip"
+            android:paddingStart="@dimen/space_l"
+            android:paddingTop="@dimen/space_s"
+            android:paddingEnd="@dimen/space_l"
+            android:paddingBottom="@dimen/space_s"
+            android:text="@string/action_open_accessibility_settings"
+            android:textColor="@color/on_brand"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:id="@+id/overlayLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:text="@string/perm_overlay_title"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/perm_overlay_body"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption" />
+
+        <TextView
+            android:id="@+id/openOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:background="@drawable/bg_chip"
+            android:paddingStart="@dimen/space_l"
+            android:paddingTop="@dimen/space_s"
+            android:paddingEnd="@dimen/space_l"
+            android:paddingBottom="@dimen/space_s"
+            android:text="@string/action_open_overlay_settings"
+            android:textColor="@color/on_brand"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:id="@+id/restrictedHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:text="@string/perm_restricted_hint"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- The running (or just finished) task. -->
+    <LinearLayout
+        android:id="@+id/taskCard"
+        style="@style/Card.Deuty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_marginEnd="@dimen/space_m"
+        android:layout_marginBottom="@dimen/space_s"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/taskState"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption"
+                android:textStyle="bold"
+                tools:text="RUNNING" />
+
+            <TextView
+                android:id="@+id/taskBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption"
+                tools:text="12/60 actions" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/taskGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xs"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            tools:text="Open Settings, then tap Wi-Fi" />
+
+        <ProgressBar
+            android:id="@+id/taskProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:max="100"
+            tools:progress="40" />
+
+        <TextView
+            android:id="@+id/taskSteps"
+            style="@style/MonoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:lineSpacingExtra="2dp"
+            tools:text="1. Open Settings  [done]\n2. Tap Wi-Fi  [running]" />
+
+        <TextView
+            android:id="@+id/taskAsk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:textColor="@color/status_warn"
+            android:textSize="@dimen/text_body"
+            android:visibility="gone"
+            tools:text="This looks like a payment screen. Continue?"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/askOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/taskControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/stopButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_s"
+                android:layout_weight="1.4"
+                android:background="@drawable/bg_overlay_stop"
+                android:contentDescription="@string/content_description_stop"
+                android:gravity="center"
+                android:paddingTop="@dimen/space_m"
+                android:paddingBottom="@dimen/space_m"
+                android:text="@string/action_stop"
+                android:textColor="@color/on_brand"
+                android:textSize="@dimen/text_body"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pauseButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_s"
+                android:layout_weight="1"
+                android:background="@drawable/bg_chip"
+                android:gravity="center"
+                android:paddingTop="@dimen/space_m"
+                android:paddingBottom="@dimen/space_m"
+                android:text="@string/action_pause"
+                android:textColor="@color/on_brand"
+                android:textSize="@dimen/text_body" />
+
+            <TextView
+                android:id="@+id/retryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_s"
+                android:layout_weight="1"
+                android:background="@drawable/bg_chip"
+                android:gravity="center"
+                android:paddingTop="@dimen/space_m"
+                android:paddingBottom="@dimen/space_m"
+                android:text="@string/action_retry"
+                android:textColor="@color/on_brand"
+                android:textSize="@dimen/text_body" />
+
+            <TextView
+                android:id="@+id/skipButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_chip"
+                android:gravity="center"
+                android:paddingTop="@dimen/space_m"
+                android:paddingBottom="@dimen/space_m"
+                android:text="@string/action_skip"
+                android:textColor="@color/on_brand"
+                android:textSize="@dimen/text_body" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/examplesScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_m"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/examplesRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/space_xs"
+            android:paddingBottom="@dimen/space_xs" />
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_m"
+        android:paddingBottom="@dimen/space_s"
+        android:scrollbars="vertical" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_m"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/quickRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/space_s"
+            android:paddingBottom="@dimen/space_s" />
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_s"
+        android:paddingBottom="@dimen/space_m">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input"
+            android:hint="@string/chat_hint"
+            android:imeOptions="actionSend"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="4"
+            android:paddingStart="@dimen/space_l"
+            android:paddingTop="@dimen/space_m"
+            android:paddingEnd="@dimen/space_l"
+            android:paddingBottom="@dimen/space_m"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary"
+            android:textSize="@dimen/text_body" />
+
+        <ImageView
+            android:id="@+id/sendButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/content_description_send"
+            android:padding="@dimen/space_s"
+            android:src="@drawable/ic_send" />
+    </LinearLayout>
+
+</LinearLayout>

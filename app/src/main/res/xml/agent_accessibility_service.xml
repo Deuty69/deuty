@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Declares the accessibility service to the system.
+
+  Design notes (resource efficiency, requirement 3):
+  * accessibilityEventTypes is an explicit mask, NOT typeAllMask. The service
+    only wakes for events it can act on; everything else never reaches us.
+  * notificationTimeout=120 lets the framework batch bursts of
+    TYPE_WINDOW_CONTENT_CHANGED (a scrolling list fires dozens per second)
+    into one callback. This is the single biggest battery saver available.
+  * canTakeScreenshot only makes the API callable on API 30+; capturing is
+    still gated at runtime by a user setting (ExecContext.allowScreenshots, set
+    from PreferencesStore and read in platform/AccessibilityScreenSource.kt).
+  * flagRetrieveInteractiveWindows + flagReportViewIds give the element
+    resolver real structure; flagIncludeNotImportantViews is required because
+    many apps mark scroll containers as not-important, and those are exactly
+    the nodes we need in order to scroll.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewClicked|typeViewLongClicked|typeViewScrolled|typeViewTextChanged|typeViewFocused|typeViewSelected"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagReportViewIds|flagRetrieveInteractiveWindows"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"
+    android:canTakeScreenshot="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="120"
+    android:settingsActivity="com.deuty.agent.ui.SettingsActivity"
+    tools:targetApi="30" />

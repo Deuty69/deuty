@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">12dp</dimen>
+    <dimen name="space_l">16dp</dimen>
+    <dimen name="space_xl">24dp</dimen>
+
+    <dimen name="text_caption">11sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_title">17sp</dimen>
+    <dimen name="text_headline">22sp</dimen>
+
+    <!-- Capsule: 34dp tall is enough to read at a glance and small enough that
+         it does not cover a toolbar. Collapsed width is wrap_content. -->
+    <dimen name="capsule_height">34dp</dimen>
+    <dimen name="capsule_radius">17dp</dimen>
+    <dimen name="capsule_padding_h">12dp</dimen>
+    <dimen name="dot_size">9dp</dimen>
+
+    <!-- Panel stays under 320dp so it never covers a full-width form on a
+         360dp screen and remains reachable with one thumb. -->
+    <dimen name="panel_width">304dp</dimen>
+    <dimen name="panel_radius">20dp</dimen>
+    <dimen name="panel_padding">14dp</dimen>
+
+    <dimen name="bubble_radius">14dp</dimen>
+    <dimen name="input_radius">22dp</dimen>
+    <dimen name="card_radius">14dp</dimen>
+</resources>

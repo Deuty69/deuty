@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#0E1116</color>
+    <color name="surface">#161B22</color>
+    <color name="surface_alt">#1D232C</color>
+    <color name="outline">#2C343F</color>
+    <color name="text_primary">#E9EDF3</color>
+    <color name="text_secondary">#9AA4B2</color>
+    <color name="bubble_user">#243A6B</color>
+    <color name="bubble_agent">#1D232C</color>
+</resources>

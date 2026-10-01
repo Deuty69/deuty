@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Debug / inspector (requirement 27).
+
+  Every field the requirement asks for is on one screen without scrolling where
+  possible: package, window, node counts, screen source, signature, last action,
+  last result, task state, retries and budget. Below that: the tree dump and the
+  event log, which are the two things a developer actually reads.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/space_s"
+        android:paddingTop="@dimen/space_m"
+        android:paddingEnd="@dimen/space_m"
+        android:paddingBottom="@dimen/space_m">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cancel"
+            android:padding="@dimen/space_s"
+            android:src="@drawable/ic_close" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/title_inspector"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/liveToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chip"
+            android:paddingStart="@dimen/space_m"
+            android:paddingTop="@dimen/space_s"
+            android:paddingEnd="@dimen/space_m"
+            android:paddingBottom="@dimen/space_s"
+            android:text="@string/inspector_live"
+            android:textColor="@color/on_brand"
+            android:textSize="@dimen/text_body" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/outline" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/space_l">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_m">
+
+            <TextView
+                android:id="@+id/noAccessibility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_s"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/space_m"
+                android:text="@string/inspector_no_accessibility"
+                android:textColor="@color/status_warn"
+                android:textSize="@dimen/text_body"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <LinearLayout style="@style/Card.Deuty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/linePackage"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="package    com.android.settings" />
+
+                <TextView
+                    android:id="@+id/lineWindow"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="window     Wi-Fi" />
+
+                <TextView
+                    android:id="@+id/lineNodes"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="nodes      128 (34 interactive)" />
+
+                <TextView
+                    android:id="@+id/lineSource"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="source     tree  in 41ms" />
+
+                <TextView
+                    android:id="@+id/lineSignature"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="signature  7f3a91c2" />
+
+                <TextView
+                    android:id="@+id/lineState"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="state      VERIFYING  retries 1/12" />
+
+                <TextView
+                    android:id="@+id/lineBudget"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="budget     12/60 actions, 480s left" />
+
+                <TextView
+                    android:id="@+id/lineLastAction"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="last       tap &quot;Wi-Fi&quot; [exact text 1.10]" />
+
+                <TextView
+                    android:id="@+id/lineLastResult"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="result     SUCCESS (verified) in 612ms" />
+
+                <TextView
+                    android:id="@+id/lineLoop"
+                    style="@style/MonoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/status_warn"
+                    android:visibility="gone"
+                    tools:text="loop       same state+action 3x"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_m"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/refreshButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_s"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_chip"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/space_m"
+                    android:paddingBottom="@dimen/space_m"
+                    android:text="@string/inspector_refresh"
+                    android:textColor="@color/on_brand"
+                    android:textSize="@dimen/text_body" />
+
+                <TextView
+                    android:id="@+id/copyButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_s"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_chip"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/space_m"
+                    android:paddingBottom="@dimen/space_m"
+                    android:text="@string/inspector_copy"
+                    android:textColor="@color/on_brand"
+                    android:textSize="@dimen/text_body" />
+
+                <TextView
+                    android:id="@+id/dumpButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_chip"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/space_m"
+                    android:paddingBottom="@dimen/space_m"
+                    android:text="@string/inspector_dump"
+                    android:textColor="@color/on_brand"
+                    android:textSize="@dimen/text_body" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dumpPath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:textColor="@color/text_secondary"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/text_caption"
+                android:visibility="gone"
+                tools:text="dump written to /data/user/0/com.deuty.agent/files/agent/dump-3.json"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/sandboxButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_m"
+                android:background="@drawable/bg_chip"
+                android:gravity="center"
+                android:paddingTop="@dimen/space_m"
+                android:paddingBottom="@dimen/space_m"
+                android:text="@string/inspector_sandbox"
+                android:textColor="@color/on_brand"
+                android:textSize="@dimen/text_body" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:text="@string/inspector_sandbox_hint"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption" />
+
+            <TextView
+                style="@style/Text.Deuty.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Screen tree" />
+
+            <TextView
+                android:id="@+id/treeDump"
+                style="@style/MonoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/space_m"
+                android:text="@string/inspector_empty"
+                android:textIsSelectable="true" />
+
+            <TextView
+                style="@style/Text.Deuty.Section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Event log" />
+
+            <TextView
+                android:id="@+id/eventLog"
+                style="@style/MonoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_card"
+                android:padding="@dimen/space_m"
+                android:textIsSelectable="true"
+                tools:text="engine      I plan applied: 2 step(s)" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

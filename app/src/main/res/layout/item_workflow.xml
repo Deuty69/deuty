@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A saved workflow. Run is the primary action; delete is deliberately small. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Card.Deuty"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_m"
+    android:layout_marginTop="@dimen/space_s"
+    android:layout_marginEnd="@dimen/space_m"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/workflowName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            tools:text="Download college timetable" />
+
+        <TextView
+            android:id="@+id/workflowMeta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption"
+            tools:text="6 steps · recorded · risk LOW · run 3x (2 ok)" />
+
+        <TextView
+            android:id="@+id/workflowSteps"
+            style="@style/MonoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xs"
+            android:ellipsize="end"
+            android:maxLines="3"
+            tools:text="Open Chrome\nTap Timetable\nTap Download PDF" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/runButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_s"
+        android:background="@drawable/bg_chip"
+        android:paddingStart="@dimen/space_l"
+        android:paddingTop="@dimen/space_s"
+        android:paddingEnd="@dimen/space_l"
+        android:paddingBottom="@dimen/space_s"
+        android:text="@string/workflow_run"
+        android:textColor="@color/on_brand"
+        android:textSize="@dimen/text_body" />
+
+    <ImageView
+        android:id="@+id/deleteButton"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="@dimen/space_xs"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/workflow_delete"
+        android:padding="@dimen/space_s"
+        android:src="@drawable/ic_trash" />
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand -->
+    <color name="brand">#3D6BFF</color>
+    <color name="brand_dark">#2440A8</color>
+    <color name="on_brand">#FFFFFF</color>
+
+    <!-- Semantic surfaces (overridden in values-night) -->
+    <color name="background">#F6F7F9</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_alt">#EDEFF3</color>
+    <color name="outline">#D5D9E0</color>
+    <color name="text_primary">#12161C</color>
+    <color name="text_secondary">#5B636F</color>
+    <color name="bubble_user">#DCE5FF</color>
+    <color name="bubble_agent">#EDEFF3</color>
+
+    <!-- Agent status. These are theme-independent on purpose: the capsule is
+         drawn on top of other apps, so its palette cannot follow our theme. -->
+    <color name="status_idle">#8A8F98</color>
+    <color name="status_working">#4C8DFF</color>
+    <color name="status_ok">#2FA860</color>
+    <color name="status_warn">#E39A16</color>
+    <color name="status_error">#E5484D</color>
+    <color name="status_recording">#E5484D</color>
+
+    <color name="overlay_bg">#EE11151C</color>
+    <color name="overlay_stroke">#33FFFFFF</color>
+    <color name="overlay_text">#F3F5F8</color>
+    <color name="overlay_text_dim">#A9B1BD</color>
+    <color name="overlay_button_bg">#1E242E</color>
+    <color name="overlay_stop_bg">#E5484D</color>
+
+    <color name="launcher_background">#0F1420</color>
+</resources>
